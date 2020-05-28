@@ -5,7 +5,7 @@
 		constructor(phrase) {
 			this.phrase = phrase;
 		}
-
+//
 		addPhraseToDisplay() {
 			const phraseDiv = document.getElementById('phrase').firstElementChild;
 			const li = document.createElement('LI');
@@ -22,21 +22,34 @@
 				li.textContent = character;
 				phraseDiv.appendChild(li);
 			})
-		}
+		};
+//
 		checkLetter(letter) {
 			const array = [...game.activePhrase];
-
-
-
 			array.forEach(character => {
-				if (character == letter) {
-					console.log('correct ' + character)
-
-					//.className = 'show letter';
+				if (letter == character) {
+					phrase.showMatchedLetter(letter);
 				}
 			})
+			const wrongGuess = array.reduce((count, character) => {
+				if (letter === character) {
+					return count + 1;
+				}
+				return count;
+			}, -1)
+			if (wrongGuess === -1) {
+				game.removeLife()
+//				return false
+			}
+//			return true
 		};
+//
 		showMatchedLetter(letter) {
-
+			for (let i = 0; i < phraseDivUl.length; i++) {
+				if (letter == phraseDivUl[i].textContent) {
+					phraseDivUl[i].className = 'show letter';
+				}
+			}
+			game.checkForWin();
 		};
 	}
