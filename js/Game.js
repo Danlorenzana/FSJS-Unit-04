@@ -15,11 +15,11 @@
 			this.activePhrase = null;
 			this.heartsIndex = -1;
 		}
-// Add new phrase to phrase array.
+// Add a new phrase to phrase array.
 		createPhrases(phrase) {
 			this.phrases.push(phrase)
 		}
-// Selects a random phrase.
+// Random phrase added to 'activePhrase'.
 		getRandomPhrase() {
 			const random = Math.floor(Math.random() * 5);
 			const randomPhrase = game.phrases[random]
@@ -28,16 +28,14 @@
 		}
 // Hides the start screen.
 		startGame() {
-			overlay.style.display = 'none';
+			overlay.style.display = 'none';  /////////////////////
 			game.getRandomPhrase().addPhraseToDisplay();
-
-
 			for (let i = 0; i < qwertyKeys.length; i++) {
 				qwertyKeys[i].className = 'key';
 				qwertyKeys[i].disabled = false;
 			}
 			for (let i = 0; i < goodHeart.length; i++) {
-				goodHeart[i].firstElementChild.src='images/liveHeart.png';
+				goodHeart[i].firstElementChild.src = 'images/liveHeart.png';
 			}
 		}
 // Determines wether all letters have been guessed.
@@ -62,6 +60,7 @@
 				overlay.querySelector('h1').textContent = 'Sorry! Keep trying!'
 				overlay.className = 'lose';
 				overlay.style.display = '';
+				btn.disabled = false;
 				return false
 			}
 		}
@@ -70,16 +69,10 @@
 			overlay.querySelector('h1').textContent = 'Great Job!'
 			overlay.className = 'win';
 			overlay.style.display = '';
-
+			btn.disabled = false;
 		}
-// Takes letter guesses and runs chekLetter(); if it is not disabled.
+// Takes letter guesses and runs checkLetter()
 		handleInteraction(button) {
-			for (let i = 0; i < qwertyKeys.length; i++) {
-				if (button === qwertyKeys[i].textContent) {
-					if (qwertyKeys[i].className === 'key') {
-						phrase.checkLetter(button);
-					}
-				}
-			}
+			phrase.checkLetter(button);
 		}
 	}
