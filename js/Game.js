@@ -1,68 +1,85 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * Game.js */
+
 	 class Game {
 		constructor() {
 			this.missed = 0;
 			this.phrases = [
-				"yadda yadda",
-				"happy fesitvus",
-				"serentiy now",
-				"doofus",
-				"jimmy leg"
+				"crazy like a fox",
+				"dental plan",
+				"okely dokely",
+				"excellent",
+				"ay caramba"
 			];
 			this.activePhrase = null;
 			this.heartsIndex = -1;
 		}
+// Add new phrase to phrase array.
 		createPhrases(phrase) {
 			this.phrases.push(phrase)
 		}
+// Selects a random phrase.
 		getRandomPhrase() {
 			const random = Math.floor(Math.random() * 5);
 			const randomPhrase = game.phrases[random]
 			this.activePhrase = randomPhrase;
 			return new Phrase(randomPhrase.phrase);
 		}
+// Hides the start screen.
 		startGame() {
-			// const btn = document.getElementById('overlay');
 			overlay.style.display = 'none';
 			game.getRandomPhrase().addPhraseToDisplay();
+
+
+			for (let i = 0; i < qwertyKeys.length; i++) {
+				qwertyKeys[i].className = 'key';
+				qwertyKeys[i].disabled = false;
+			}
+			for (let i = 0; i < goodHeart.length; i++) {
+				goodHeart[i].firstElementChild.src='images/liveHeart.png';
+			}
 		}
+// Determines wether all letters have been guessed.
 		checkForWin() {
 			let missingLetters = 0;
-			for (let i = 0; i < phraseDivUl.length; i++) {
-				if (phraseDivUl[i].className == "hide letter") {
-					missingLetters += 1;
-					return false
+				for (let i = 0; i < phraseDivUl.length; i++) {
+					if (phraseDivUl[i].className == "hide letter") {
+						missingLetters += 1;
+						return false
+					}
 				}
-			}
-//			console.log(missingLetters);
-			if (missingLetters == 0) {
-//				console.log('Winner! Winner!')
-				return true
-			}
+				if (missingLetters == 0) {
+					game.gameOver();
+					return true
+				}
 		}
-
+// Lose a heart with each wrong guess; 5 wrong guesses show red 'lose' screen.
 		removeLife() {
-			let goodHeart = document.querySelectorAll('.tries');
 			this.heartsIndex += 1;
 			goodHeart[this.heartsIndex].firstElementChild.src='images/lostHeart.png';
 			if (this.heartsIndex === 4) {
-				overlay.querySelector('h1').textContent = 'Fail!'
+				overlay.querySelector('h1').textContent = 'Sorry! Keep trying!'
 				overlay.className = 'lose';
 				overlay.style.display = '';
 				return false
-
 			}
 		}
-
+// Shows congratulatory green 'win' screen.
 		gameOver(gameWon) {
-			if (gameWon) {
-				overlay.querySelector('h1').textContent = 'Great Job!'
-				overlay.className = 'win';
-				overlay.style.display = '';
-			} else {
-				console.log('not yet');
+			overlay.querySelector('h1').textContent = 'Great Job!'
+			overlay.className = 'win';
+			overlay.style.display = '';
+
+		}
+// Takes letter guesses and runs chekLetter(); if it is not disabled.
+		handleInteraction(button) {
+			for (let i = 0; i < qwertyKeys.length; i++) {
+				if (button === qwertyKeys[i].textContent) {
+					if (qwertyKeys[i].className === 'key') {
+						phrase.checkLetter(button);
+					}
+				}
 			}
 		}
 	}
