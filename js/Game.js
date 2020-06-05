@@ -56,9 +56,7 @@
 // Removes heart; 5 wrong guesses show red 'lose' screen.
 		removeLife() {
 			this.heartsIndex += 1;
-			setTimeout(()=>
-				goodHeart[this.heartsIndex].firstElementChild.src='images/lostHeart.png'
-				, 300);
+			goodHeart[this.heartsIndex].firstElementChild.src='images/lostHeart.png';
 			goodHeart[this.heartsIndex].firstElementChild.className= 'animate__animated animate__jello';
 			if (this.heartsIndex === 4) {
 				overlay.querySelector('h1').style.color = 'firebrick';
