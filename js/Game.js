@@ -28,17 +28,18 @@
 		}
 // Hides the start screen.
 		startGame() {
-			overlay.style.display = 'none';  /////////////////////
-			game.getRandomPhrase().addPhraseToDisplay();
+			overlay.style.display = 'none';
+			this.getRandomPhrase().addPhraseToDisplay();
 			for (let i = 0; i < qwertyKeys.length; i++) {
 				qwertyKeys[i].className = 'key';
 				qwertyKeys[i].disabled = false;
 			}
 			for (let i = 0; i < goodHeart.length; i++) {
 				goodHeart[i].firstElementChild.src = 'images/liveHeart.png';
+				goodHeart[i].firstElementChild.className = '';
 			}
 		}
-// Determines wether all letters have been guessed.
+// Determines whether entire phrase is displayed.
 		checkForWin() {
 			let missingLetters = 0;
 				for (let i = 0; i < phraseDivUl.length; i++) {
@@ -48,30 +49,36 @@
 					}
 				}
 				if (missingLetters == 0) {
-					game.gameOver();
+					this.gameOver();
 					return true
 				}
 		}
-// Lose a heart with each wrong guess; 5 wrong guesses show red 'lose' screen.
+// Removes heart; 5 wrong guesses show red 'lose' screen.
 		removeLife() {
 			this.heartsIndex += 1;
-			goodHeart[this.heartsIndex].firstElementChild.src='images/lostHeart.png';
+			setTimeout(()=>
+				goodHeart[this.heartsIndex].firstElementChild.src='images/lostHeart.png'
+				, 300);
+			goodHeart[this.heartsIndex].firstElementChild.className= 'animate__animated animate__jello';
 			if (this.heartsIndex === 4) {
-				overlay.querySelector('h1').textContent = 'Sorry! Keep trying!'
+				overlay.querySelector('h1').style.color = 'firebrick';
+				overlay.querySelector('h1').textContent = 'Doh! 😖';
+
 				overlay.className = 'lose';
 				overlay.style.display = '';
 				btn.disabled = false;
 				return false
 			}
 		}
-// Shows congratulatory green 'win' screen.
+// Displays congratulatory green 'win' screen.
 		gameOver(gameWon) {
-			overlay.querySelector('h1').textContent = 'Great Job!'
+			overlay.querySelector('h1').textContent = '🥳 Woo Hoo!'
+			overlay.querySelector('h1').style.color = 'blueviolet'
 			overlay.className = 'win';
 			overlay.style.display = '';
 			btn.disabled = false;
 		}
-// Takes letter guesses and runs checkLetter()
+// Pushes letter to checkLetter()
 		handleInteraction(button) {
 			phrase.checkLetter(button);
 		}

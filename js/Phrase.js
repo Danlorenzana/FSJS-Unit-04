@@ -5,7 +5,7 @@
 		constructor(phrase) {
 			this.phrase = phrase;
 		}
-// Each character(and spaces) is separated into individual li
+// Each letter and space is set to individual <li>
 		addPhraseToDisplay() {
 			const li = document.createElement('LI');
 			const array = [...game.activePhrase];
@@ -20,12 +20,12 @@
 				phraseDiv.appendChild(li);
 			})
 		};
-// Determines whether each guess is in the phrase.
+// Determines whether a letter is in the activePhrase.
 		checkLetter(letter) {
 			const array = [...game.activePhrase];
 			array.forEach(character => {
 				if (letter == character) {
-					phrase.showMatchedLetter(letter);
+					this.showMatchedLetter(letter);
 				}
 			})
 			const wrongGuess = array.reduce((count, character) => {
@@ -38,25 +38,25 @@
 				game.removeLife();
 				for (let i = 0; i < qwertyKeys.length; i++) {
 					if (letter === qwertyKeys[i].textContent) {
-						qwertyKeys[i].className = 'wrong';
+						qwertyKeys[i].className = 'wrong animate__animated animate__headShake';
 						qwertyKeys[i].disabled = true
 					}
 				}
 			}
 			game.checkForWin();
 		};
-// Reveals correct letter guesses.
+// Reveals letter(s) on the screen.
 		showMatchedLetter(letter) {
 			const guess = letter;
 			for (let i = 0; i < phraseDivUl.length; i++) {
 				if (guess == phraseDivUl[i].textContent) {
-					phraseDivUl[i].className = 'show letter';
-
+					phraseDivUl[i].className = 'show letter animate__animated animate__flipInY';
+					phraseDivUl[i].style.setProperty('--animate-duration', '0.7s');
 				}
 			}
 			for (let i = 0; i < qwertyKeys.length; i++) {
 				if (letter === qwertyKeys[i].textContent) {
-					qwertyKeys[i].className = 'chosen';
+					qwertyKeys[i].className = 'chosen animate__animated animate__headShake';
 					qwertyKeys[i].disabled = true;
 				}
 			}

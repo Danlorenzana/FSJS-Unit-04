@@ -16,3 +16,11 @@ If the player completes the phrase before they run out of guesses, a winning scr
 A player can guess a letter only once. After they’ve guessed a letter, your programming will need to disable that letter on the onscreen keyboard.
 
 After building this project, you'll have another great portfolio piece to show off your skills, a fun app that you can share with your friends and family, and good understanding of the principles of Object-Oriented Programming.
+
+Extra credit additions:
+–> On-screen keys shake as targeted.
+–> Hidden phrase letter(s) reveal with flip animation.
+–> Heart will pulse with each wrong guess; then change color(img).
+–> Game over (win or lose) message shakes to draw attention.
+–> Allows to start game with return key(13) or spacebar key(32).
+–> Repeat keyboard guesses should be invalid.

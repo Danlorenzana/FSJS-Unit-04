@@ -7,10 +7,16 @@
 	const qwertyKeys = document.querySelectorAll('.key');
 	const btn = document.getElementById('btn__reset');
 	const goodHeart = document.querySelectorAll('.tries');
+	const goMessage = document.querySelector('#game-over-message');
 	let phrase;
 	let game;
 
-// Creates new game and selects random phrase; resets game board.
+// Intial setup.
+	overlay.style.zIndex = 1000;
+	goMessage.classList.add('animate__animated', 'animate__tada');
+	goMessage.style.setProperty('--animate-duration', '1.0s');
+
+// Creates new game and selects random phrase. Resets game board.
 	btn.addEventListener('click', () => {
 		phraseDiv.innerHTML = '';
 		game = new Game();
@@ -18,16 +24,16 @@
 		game.startGame();
 		btn.disabled = true;
 	});
-// Targets each individual key.
+// Targets onscreen keyboard inputs.
 	for (let i = 0; i < qwertyKeys.length; i++) {
 		qwertyKeys[i].addEventListener('click', (e) => {
 			let button = e.target;
-
 			game.handleInteraction(button.textContent);
 		})
 	}
 // Accepts keyboard letter inputs for gameplay; ignores repeat inputs.
 // Use 'return' or 'spacebar' to start game.
+//https://stackoverflow.com/questions/48254843/converting-javascript-key-code-to-char-and-vice-versa
 	document.addEventListener("keydown", (k) => {
 		let keyValue = k.keyCode;
 		let keyChar = String.fromCharCode(k.keyCode).toLowerCase();
@@ -42,15 +48,3 @@
         		btn.click();
 		}
 	});
-
-// do extra credit CSS:
-	// fade the start screen
-	// make the letter bounce if correct in the phrase.
-	// with each wrong guess the screen turns redder
-
-//https://stackoverflow.com/questions/48254843/converting-javascript-key-code-to-char-and-vice-versa
-
-
-
-//want to start game with return (key code: 13) or spacebar (key code: 32)
-//repeat keyboard guesses should be invalid. *solved*
