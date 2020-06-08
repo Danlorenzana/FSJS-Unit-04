@@ -13,7 +13,6 @@
 				"ay caramba"
 			];
 			this.activePhrase = null;
-			this.heartsIndex = -1;
 		}
 // Add a new phrase to phrase array.
 		createPhrases(phrase) {
@@ -55,18 +54,17 @@
 		}
 // Removes heart; 5 wrong guesses show red 'lose' screen.
 		removeLife() {
-			this.heartsIndex += 1;
-			goodHeart[this.heartsIndex].firstElementChild.src='images/lostHeart.png';
-			goodHeart[this.heartsIndex].firstElementChild.className= 'animate__animated animate__jello';
-			if (this.heartsIndex === 4) {
+			goodHeart[this.missed ].firstElementChild.src='images/lostHeart.png';
+			goodHeart[this.missed].firstElementChild.className= 'animate__animated animate__jello';
+			if (this.missed === 4) {
 				overlay.querySelector('h1').style.color = 'firebrick';
 				overlay.querySelector('h1').textContent = 'Doh! 😖';
-
 				overlay.className = 'lose';
 				overlay.style.display = '';
 				btn.disabled = false;
 				return false
 			}
+			this.missed += 1;
 		}
 // Displays congratulatory green 'win' screen.
 		gameOver(gameWon) {
@@ -79,5 +77,32 @@
 // Pushes letter to checkLetter()
 		handleInteraction(button) {
 			phrase.checkLetter(button);
+
+			const array = [...this.activePhrase];
+			const wrongGuess = array.reduce((count, character) => {
+				if (button === character) {
+					return count + 1;
+				}
+				return count;
+			}, -1)
+			if (wrongGuess === -1) {
+				for (let i = 0; i < qwertyKeys.length; i++) {
+					if (button === qwertyKeys[i].textContent) {
+						qwertyKeys[i].className = 'wrong animate__animated animate__headShake';
+						qwertyKeys[i].disabled = true
+					}
+				}
+				this.removeLife();
+			}
+			if (wrongGuess > -1) {
+				for (let i = 0; i < qwertyKeys.length; i++) {
+					if (button === qwertyKeys[i].textContent) {
+						qwertyKeys[i].className = 'chosen animate__animated animate__headShake';
+						qwertyKeys[i].disabled = true;
+					}
+				}
+			}
+			this.checkForWin();
 		}
+
 	}

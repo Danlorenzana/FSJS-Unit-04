@@ -15,7 +15,6 @@
 	overlay.style.zIndex = 1000;
 	goMessage.classList.add('animate__animated', 'animate__tada');
 	goMessage.style.setProperty('--animate-duration', '1.0s');
-
 // Creates new game and selects random phrase. Resets game board.
 	btn.addEventListener('click', () => {
 		phraseDiv.innerHTML = '';
@@ -33,7 +32,7 @@
 	}
 // Accepts keyboard letter inputs for gameplay; ignores repeat inputs.
 // Use 'return' or 'spacebar' to start game.
-//https://stackoverflow.com/questions/48254843/converting-javascript-key-code-to-char-and-vice-versa
+// https://stackoverflow.com/questions/48254843/converting-javascript-key-code-to-char-and-vice-versa
 	document.addEventListener("keydown", (k) => {
 		let keyValue = k.keyCode;
 		let keyChar = String.fromCharCode(k.keyCode).toLowerCase();
