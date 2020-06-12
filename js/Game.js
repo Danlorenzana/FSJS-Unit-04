@@ -6,11 +6,11 @@
 		constructor() {
 			this.missed = 0;
 			this.phrases = [
-				"crazy like a fox",
-				"dental plan",
-				"okely dokely",
-				"excellent",
-				"ay caramba"
+				{phrase: "crazy like a fox"},
+				{phrase: "dental plan"},
+				{phrase: "okely dokely"},
+				{phrase: "excellent"},
+				{phrase: "ay caramba"}
 			];
 			this.activePhrase = null;
 		}
@@ -21,7 +21,7 @@
 // Random phrase added to Phrase.
 		getRandomPhrase() {
 			const random = Math.floor(Math.random() * 5);
-			const randomPhrase = game.phrases[random];
+			const randomPhrase = game.phrases[random].phrase;
 			return new Phrase(randomPhrase);
 		}
 // Hides the start screen overlay, and will reset settings from previous game.
@@ -107,3 +107,4 @@
 		}
 
 	}
+// Final version for submission 06/12/20
