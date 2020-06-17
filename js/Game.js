@@ -20,7 +20,7 @@
 		}
 // Random phrase added to Phrase.
 		getRandomPhrase() {
-			const random = Math.floor(Math.random() * 5);
+			const random = Math.floor(Math.random() * this.phrases.length);
 			const randomPhrase = game.phrases[random].phrase;
 			return new Phrase(randomPhrase);
 		}
@@ -48,7 +48,6 @@
 					}
 				}
 				if (missingLetters === 0) {
-					this.gameOver(true);
 					return true
 				} else {
 					return false
@@ -96,12 +95,15 @@
 				}
 			} else {
 				phrase.showMatchedLetter(button);
-				this.checkForWin();
+
 				for (let i = 0; i < qwertyKeys.length; i++) {
 					if (button === qwertyKeys[i].textContent) {
 						qwertyKeys[i].className = 'chosen animate__animated animate__headShake';
 						qwertyKeys[i].disabled = true;
 					}
+				}
+				if (this.checkForWin()) {
+					this.gameOver(true);
 				}
 			}
 		}
